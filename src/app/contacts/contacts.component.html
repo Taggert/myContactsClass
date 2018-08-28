@@ -1,0 +1,23 @@
+<div class="container" *ngIf="!interactor.contacts">
+<h3>No contacts</h3>
+<button class="btn btn-sm btn-danger ml-3" [routerLink]="['/add']">
+  Add contact</button>
+</div>
+<div class="row">
+  <div class="col-4">
+    <ul class="list-group">
+      <li class="list-group-item list-group-item-action " *ngFor="let contact of interactor.contacts; let i = index">
+        <div class="row">
+          <a [routerLink]="['/contacts', i]" class="col-8">
+            {{contact.fullName}}</a>
+          <button class="btn btn-sm btn-danger col-4" (click)="onRemove(contact.contactId)">Remove</button>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div class="col col-centered">
+    <router-outlet></router-outlet>
+  </div>
+  <div class="w-100"></div>
+  <button  *ngIf="interactor.contacts" class="btn btn-danger btn-sm mt-2 ml-5" (click)="onRemoveList()">Remove contact list</button>
+</div>

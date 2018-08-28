@@ -1,10 +1,26 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {MainInteractor} from './business/main.interactor';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styles: []
+  styles: [],
+  providers: [MainInteractor]
 })
 export class AppComponent {
-  title = 'app';
+
+  constructor(private interactor: MainInteractor) {
+
+  }
+
+
+  checkToken(): boolean {
+    return this.interactor.checkToken();
+  }
+
+  onLogout(): void {
+    this.interactor.logout();
+  }
+
+
 }
