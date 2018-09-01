@@ -1,12 +1,6 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-
-import { AppComponent } from './app.component';
-import { MainComponent } from './main/main.component';
-import { ContactsComponent } from './contacts/contacts.component';
-import { LoginComponent } from './login/login.component';
-import { AddComponent } from './add/add.component';
-import { ContactInfoComponent } from './contact-info/contact-info.component';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
+import {AppComponent} from './app.component';
 import {RouterModule, Routes} from '@angular/router';
 import {HttpClientModule} from '@angular/common/http';
 import {FormsModule} from '@angular/forms';
@@ -15,22 +9,16 @@ import {StoreProvider} from './providers/store.provider';
 import {AuthProvider} from './providers/auth.provider';
 
 const routes: Routes = [
-  {path: '', component: MainComponent},
-  {path: 'contacts', component: ContactsComponent, canActivate: [AuthProvider], children: [
-      {path: ':id', component: ContactInfoComponent}]},
-  {path: 'add', canActivate: [AuthProvider], component: AddComponent},
-  {path: 'login', component: LoginComponent},
+  {path: '', loadChildren: './home.module#HomeModule'},
+  {path: 'contacts', canActivate: [AuthProvider], loadChildren: './contacts.module#ContactsModule'},
+  {path: 'add', canActivate: [AuthProvider], loadChildren: './add-contact.module#AddContactModule'},
+  {path: 'login', loadChildren: './login.module#LoginModule'},
   {path: '**', redirectTo: 'login'}
 ];
 
 @NgModule({
   declarations: [
-    AppComponent,
-    MainComponent,
-    ContactsComponent,
-    LoginComponent,
-    AddComponent,
-    ContactInfoComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
@@ -41,4 +29,5 @@ const routes: Routes = [
   providers: [HttpProvider, StoreProvider, AuthProvider],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}
